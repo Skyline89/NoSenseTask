@@ -1,38 +1,57 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Channels;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace No_Sense
 {
-    class Program     
+    public static class EnumerExstension
     {
-        public static IEnumerable<string> StringOfNumbers(string count)
+        int
+        public static IEnumerable<T> ThisDoesntMakeAnySense<T>(this IEnumerable<T> list, Func<int, int, bool> checking,
+            Func<T,T> createNewRecord)
         {
-            for (var i = 0; i < count.Length; i++)
+            foreach (var item in list)
             {
-                Console.WriteLine("please enter");
+                if (item == null)
+                    throw new ArgumentNullException(nameof(item), "Please enter number instead of null");
             }
-            yield return count ;
-        }
-        public static void Main()
-        {
-            List<string> numberList = new List<string>();
-            Predicate<int[]> checking = CheckingElement;
-            //Console.WriteLine("please enter numbers separate them with ',':");
-            //var listOfNumbers = Console.ReadLine();
-            //var realNumbers = Array.ConvertAll(listOfNumbers.Split(','), int.Parse);
-            //var result = checking(realNumbers);
-            //Console.WriteLine(result);
+            return default;
+            bool res = checking(list,12)
         }
 
-         public static bool CheckingElement(int[] array)
-         {
-             
-            return Array.Exists(array, number => number == 12); ;
+        public static bool IsThere(int [] numbers, int element)
+        {
+            foreach (var number in numbers)
+            {
+                if (number == element)
+                    return true;
+            }
+
+            return false;
         }
-        
+    }
+    class Program
+    {
+        public static void Main()
+        {
+            Console.WriteLine("please enter numbers and divide them with ',':");
+            var str = Console.ReadLine().Split(',');
+            var numbers = Array.ConvertAll(str,int.Parse);
+            foreach (var number in numbers)
+            {
+                Console.WriteLine(number);
+            }
+
+        }
+
+        public static bool CheckingArrayElement(int[] array, int element)
+        {
+            return Array.Exists(array, x => x == element);
+        }
     }
 }
